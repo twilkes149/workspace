@@ -19,11 +19,10 @@ ostream &operator <<(ostream &out, Workspace &workspace) {
   return out;
 }*/
 
-int main() {
-  Program list = Program("notepad", "..."); 
-
-  Workspace work = Workspace("work");
-  work.addProgram(list); 
+int main() { 
+  string workspace("personal 2\n-Putty@C:\\Program Files\\PuTTY\\putty.exe\n- Sublime@C:\\Program Files\\Sublime Text 3\\subl.exe");
   
-  cout << work.toString() << endl;
+  Workspace work = Workspace(workspace);
+  
+  //cout << work.toString() << endl;  
 }

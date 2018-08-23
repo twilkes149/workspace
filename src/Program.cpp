@@ -27,3 +27,9 @@ string Program::getPath() {
 string Program::toString() {
   return this->getName() + "@" + this->getPath();
 }
+
+//this will need to have some validation checking 
+//i.e on windows paths use: '\' which is the escape character
+void Program::runProgram() {
+  //system(this->getPath());
+}

@@ -19,5 +19,7 @@ class Program {
     string getPath();
 
     string toString();
+
+    void runProgram();
 };
 #endif

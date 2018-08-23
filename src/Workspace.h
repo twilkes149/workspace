@@ -2,6 +2,7 @@
 #include "Program.h"
 #include <string>
 #include <vector>
+#include <regex>
 using namespace std;
 
 #ifndef __WORKSPACE__
@@ -11,8 +12,11 @@ class Workspace {
   vector<Program> list;
   string name;
 
+  void buildWorkspace(string input);
+
   public:
-    Workspace(string name);
+    Workspace();//makes an empty workspace
+    Workspace(string input);//this function will parse an input string and build this workspace
     ~Workspace();
 
     void addProgram(Program app);
