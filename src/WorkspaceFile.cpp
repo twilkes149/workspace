@@ -1,8 +1,8 @@
 #include "WorkspaceFile.h"
 
-WorkspaceFile::WorkspaceFile(string name) {
+WorkspaceFile::WorkspaceFile(string fileName) {
   this->fileExtension = ".wksp";
-  this->fileName = name;
+  this->fileName = fileName;
 }
 
 //close the files
@@ -19,14 +19,12 @@ WorkspaceFile::~WorkspaceFile() {
 
 //funtion takes a workspace and writes it to a file
 void WorkspaceFile::writeWorkspace(Workspace space) {
-  outfile = ofstream(this->fileName + this->fileExtension);
-  if (outfile.is_open()) {
-    outfile << space.getName() << " " << space.getSize() << endl;
-    for (int i = 0; i < space.getSize(); i++) {
-      outfile << "-" << space.getProgram(i).toString() << endl;
-    }
-  }
-  else {
-    cout << "Could not write to file" << this->fileName << this->fileExtension << endl;
-  }
+  this->outfile.open(this->fileName + this->fileExtension);
+  //construct json object to write to a file
+  json buf;
+  buf["name"] = space.getName();
+  buf["programs"] = space.getPrograms();
+
+  this->outfile << buf;
+  this->outfile.close();
 }

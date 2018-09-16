@@ -5,7 +5,17 @@ This project is a workspace project. You will be able to define different "works
 ## Part 1
 Part one will just consist of defingin workspaces, being able to see a list of saved workspaces, and finally the software will open all the programs defined in a workspace.
 ### Workspace object
-Each object will be stored as a map. The key will be the name of the software, and the value will be the path.
+- name
+- list of programs
+<br>
+Functionality:
+Create a workspace from a json string
+add / remove programs from a workspace
+Save a workspace to a file
+
+### Program object
+- program name
+- path to executable
 
 ## Part 2
 In part two the user will be able to see a list of installed programs and select which ones they want to add to a workspace. This will automatically add the path.

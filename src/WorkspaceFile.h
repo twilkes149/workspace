@@ -2,6 +2,7 @@
 #include "Workspace.h"
 #include <fstream>//for file handling
 #include <string>
+#include "json.hpp"
 using namespace std;
 
 #ifndef __WORKFILE__
@@ -16,7 +17,7 @@ class WorkspaceFile {
   
 
   public:
-    WorkspaceFile(string name);
+    WorkspaceFile(string fileName);
     ~WorkspaceFile();
     string readFile(string filename);//reads a workspace from a file, and creates a workspace object
     void writeWorkspace(Workspace space);//writes a workspace to a file

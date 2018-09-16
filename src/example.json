@@ -1,0 +1,13 @@
+{
+ "name": "personal",
+ "programs": [
+   {
+     "name": "putty",
+     "path": "C:\\Program Files\\PuTTY\\putty.exe"  
+   },
+   {
+     "name": "sublime",
+     "path": "C:\\Program Files\\Sublime Text 3\\subl.exe"
+   }
+ ]
+}

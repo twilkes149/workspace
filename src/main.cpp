@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Program.h"
 #include "Workspace.h"
+#include "WorkspaceFile.h"
 using namespace std;
 
 ostream &operator <<(ostream &out, Program &program) {
@@ -19,10 +20,13 @@ ostream &operator <<(ostream &out, Workspace &workspace) {
   return out;
 }*/
 
-int main() { 
-  string workspace("personal 2\n-Putty@C:\\Program Files\\PuTTY\\putty.exe\n- Sublime@C:\\Program Files\\Sublime Text 3\\subl.exe");
+int main() {
+  WorkspaceFile saveFile("testSave");
+  string workspace("{\"name\": \"personal\", \"programs\": [  { \"name\": \"putty\", \"path\": \"path to putty\"  }, {\"name\": \"sublime\",\"path\": \"path to sublime\"}]}");
   
   Workspace work = Workspace(workspace);
   
-  //cout << work.toString() << endl;  
+  cout << work.toString() << endl;
+
+  saveFile.writeWorkspace(work);
 }

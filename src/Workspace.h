@@ -1,15 +1,17 @@
 #include <iostream>
 #include "Program.h"
+#include "json.hpp"
 #include <string>
 #include <vector>
 #include <regex>
 using namespace std;
+using json = nlohmann::json;
 
 #ifndef __WORKSPACE__
 #define __WORKSPACE__
 
 class Workspace {
-  vector<Program> list;
+  json programs;
   string name;
 
   void buildWorkspace(string input);
@@ -20,13 +22,13 @@ class Workspace {
     ~Workspace();
 
     void addProgram(Program app);
+    void addProgram(string name, string path);
     Program getProgram(int index);//gets a specific index
+    json getPrograms();
     void removeProgram(int index);//removes a specific program from this workspace
-    
-    int getSize() {return list.size();}
 
-    void setName(string name) {this->name = name;}
-    string getName() {return name;}
+    void setName(string name);
+    string getName();
 
     string toString();
 };
