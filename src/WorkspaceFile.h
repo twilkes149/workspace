@@ -19,7 +19,7 @@ class WorkspaceFile {
   public:
     WorkspaceFile(string fileName);
     ~WorkspaceFile();
-    string readFile(string filename);//reads a workspace from a file, and creates a workspace object
+    Workspace readFile(string filename);//reads a workspace from a file, and creates a workspace object
     void writeWorkspace(Workspace space);//writes a workspace to a file
 };
 

@@ -25,8 +25,9 @@ int main() {
   string workspace("{\"name\": \"personal\", \"programs\": [  { \"name\": \"putty\", \"path\": \"path to putty\"  }, {\"name\": \"sublime\",\"path\": \"path to sublime\"}]}");
   
   Workspace work = Workspace(workspace);
-  
-  cout << work.toString() << endl;
+  Workspace personal = saveFile.readFile("testSave.wksp");
+  cout << personal.toString() << endl;
+  //cout << work.toString() << endl;
 
-  saveFile.writeWorkspace(work);
+  //saveFile.writeWorkspace(work);
 }
