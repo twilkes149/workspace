@@ -17,5 +17,25 @@ Save a workspace to a file
 - program name
 - path to executable
 
+### Command line interface
+workspace<br>
+  displays list of spaces, asks which space you would like to start
+
+Options:
+  -a | --add <workspace>
+    creates a blank workspace
+
+  -i | --insert <workspace> <program name> <path to program>
+    adds a program to a workspace.
+
+  -r | --remove <workspace> <program name>
+    removes a program from a workspace
+  
+  -d | --delete <workspace>
+    deletes a specific workspace
+
+  -s | --start <workspace>
+    opens all programs within a workspace
+
 ## Part 2
 In part two the user will be able to see a list of installed programs and select which ones they want to add to a workspace. This will automatically add the path.
