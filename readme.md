@@ -18,7 +18,7 @@ Save a workspace to a file
 - path to executable
 
 ### Command line interface
-workspace<br>
+workspace <filename> [options] <br>
   displays list of spaces, asks which space you would like to start
 
 Options:
@@ -36,6 +36,9 @@ Options:
 
   -s | --start <workspace>
     opens all programs within a workspace
+
+  -f | --file <file name>
+    the file to save workspace too
 
 ## Part 2
 In part two the user will be able to see a list of installed programs and select which ones they want to add to a workspace. This will automatically add the path.
