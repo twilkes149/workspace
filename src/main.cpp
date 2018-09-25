@@ -1,8 +1,10 @@
 #include <iostream>
+#include "json.hpp"
 #include "Program.h"
 #include "Workspace.h"
 #include "WorkspaceFile.h"
 using namespace std;
+using json = nlohmann::json;
 
 ostream &operator <<(ostream &out, Program &program) {
   out << program.getName() << "@" << program.getPath();
@@ -32,21 +34,32 @@ void removeProgram(string workspace, string name);
 void deleteWorkspace(string name);
 
 //parses the arguements of the command line and calls the appropiate function
-void parseCommandLineArgs(int argc, char* args[]);
+bool parseCommandLineArgs(int argc, char* args[]);
 
 //returns a file name of format name.wksp
 string parseFileName(string name);
 
 //********************************************* MAIN *************************************
 int main(int argc, char* args[]) {
-  /*WorkspaceFile saveFile("testSave");
-  string workspace("{\"name\": \"personal\", \"programs\": [  { \"name\": \"putty\", \"path\": \"path to putty\"  }, {\"name\": \"sublime\",\"path\": \"path to sublime\"}]}");
+  /*string workspace("{\"name\": \"personal\", \"programs\": [  { \"name\": \"putty\", \"path\": \"path to putty\"  }, {\"name\": \"sublime\",\"path\": \"path to sublime\"}]}");
   
   Workspace work = Workspace(workspace);
   Workspace personal = saveFile.readFile("testSave.wksp");
   cout << personal.toString() << endl;*/
 
-  parseCommandLineArgs(argc, args);
+  if (!parseCommandLineArgs(argc, args)) {
+    printUsage();
+    return 0;
+  }
+  int size = 0;
+  WorkspaceFile saveFile(filename);
+  string fileString = saveFile.readFile(filename);
+  spaces = saveFile.parseString(fileString, &size);
+  
+  for (int i = 0; i < size; i++) {
+    cout << spaces[i].toString() << endl << endl;
+  }
+  delete spaces;
 }
 
 //*************************************** FUNCTIONS ***************************************
@@ -77,14 +90,16 @@ void printUsage() {
 }
 
 //parses the arguements of the command line and calls the appropiate function
-void parseCommandLineArgs(int argc, char* args[]) {
+//returns false if there was an error
+bool parseCommandLineArgs(int argc, char* args[]) {
+  bool returnVal = false;
   if (argc >= 2) {
     filename = parseFileName(args[1]);
+    returnVal = true;
   }
   else {
     filename = "workspace.wksp";
   }
-  cout << "file: " << filename << endl;
   //loop thorugh all the options
   for (int i = 1; i < argc;) {
     if ((strcmp(args[i], "-a") == 0 || strcmp(args[i], "--add") ==0) && i+1 < argc) {//creating a workspace
@@ -92,6 +107,7 @@ void parseCommandLineArgs(int argc, char* args[]) {
 
       createWorkspace(name);
       i += 2;//move past the used arguements
+      returnVal = true;
     }
     else if ((strcmp(args[i], "-i") ==0 || strcmp(args[i], "--insert") ==0) && i+3 < argc)  {//inserting a program into a workspace
         string name = args[i+1];
@@ -100,6 +116,7 @@ void parseCommandLineArgs(int argc, char* args[]) {
         
         addProgram(name, program, path);
         i += 4;
+        returnVal = true;
     }
     else if ((strcmp(args[i],"-r") == 0 || strcmp(args[i], "--remove") == 0) && i+2 < argc) {//remove a program
       string name = args[+1];
@@ -107,31 +124,37 @@ void parseCommandLineArgs(int argc, char* args[]) {
 
       removeProgram(name, program);
       i += 3;
+      returnVal = true;
     }
     else if ((strcmp(args[i],"-d") == 0 || strcmp(args[i], "--delete") == 0) && i+1 < argc) {//delete a workspace
       string name = args[i+1];
       
       deleteWorkspace(name);
       i += 2;
+      returnVal = true;
     }
     else if ((strcmp(args[i],"-s") == 0 || strcmp(args[i],"--start") == 0) && i+1 < argc) {//start a workspace
       string name = args[i+1];
 
       startWorkspace(name);
       i += 2;
+      returnVal = true;
     }
     else if (strcmp(args[i],"-h") == 0 || strcmp(args[i],"--help") == 0) { //user wants help
       printUsage();
       i += 1;
+      returnVal = true;
     }
     else if ((strcmp(args[i], "-f") == 0 || strcmp(args[i], "--file") == 0) && i+1 < argc) {
       filename = parseFileName(args[i+1]);
       i += 2;
+      returnVal = true;
     }
-    else {
+    else {//if it didn't match, move on to the next arguement
       i++;
     }
   }
+  return returnVal;
 }
 
 //returns a file name of format name.wksp

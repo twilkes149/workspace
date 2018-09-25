@@ -19,8 +19,9 @@ class WorkspaceFile {
   public:
     WorkspaceFile(string fileName);
     ~WorkspaceFile();
-    Workspace readFile(string filename);//reads a workspace from a file, and creates a workspace object
+    string readFile(string filename);//reads a workspace from a file, and creates a workspace object
     void writeWorkspace(Workspace space);//writes a workspace to a file
+    Workspace* parseString(string input, int* size);//parses an input string and returns an array of workspaces
 };
 
 #endif

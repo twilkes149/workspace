@@ -16,7 +16,7 @@ WorkspaceFile::~WorkspaceFile() {
   }
 }
 
-Workspace WorkspaceFile::readFile(string fileName) {
+string WorkspaceFile::readFile(string fileName) {
   string buf = "";
   string line;
   this->infile.open(fileName);
@@ -30,8 +30,20 @@ Workspace WorkspaceFile::readFile(string fileName) {
     infile.close();
   }
 
-  Workspace space(buf);
-  return space;
+  return buf;
+}
+
+//this function will parse a json string and return an array of workspaces
+//size will then contain the amount of workspaces
+Workspace* WorkspaceFile::parseString(string input, int* size) {
+  json spaces = json::parse(input);//parse the input string
+  Workspace* wksp = new Workspace[spaces.size()];
+  
+  for (int i = 0; i < spaces.size(); i++) {//iterate over each element in the parsed string and parse them into a workspace object
+    wksp[i] = Workspace(spaces[i].dump());
+  }
+  *size = spaces.size();//save the size
+  return wksp;
 }
 
 //funtion takes a workspace and writes it to a file
